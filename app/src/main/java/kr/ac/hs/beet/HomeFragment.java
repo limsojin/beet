@@ -1,8 +1,11 @@
 package kr.ac.hs.beet;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,14 +20,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
+
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
+    private final String TAG = "HomeFragment";
 
     private FragmentManager fragmentManager;
     private Toolbar toolbar; //툴바
     //하단 버튼 없애기
     private View decorView;
     private int	uiOption;
+    MyDbHelper myDbHelper;
+    ViewPager2 viewPager2;
+    //ArrayList<HomeQuestList> list = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -41,6 +51,15 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        viewPager2 = view.findViewById(R.id.viewPager2);
+
+        myDbHelper = new MyDbHelper(getActivity().getApplicationContext());
+
+        /* 예시로 집어넣음!
+        list.add(new HomeQuestList("7PM go to the gym"));
+        viewPager2.setAdapter(new HomeAdapter(list));*/
+
+        QusetInit();
 
         fragmentManager = getFragmentManager();
 
@@ -100,5 +119,25 @@ public class HomeFragment extends Fragment {
         }
     }
     //--------------
+    public void QusetInit(){
+        ArrayList<HomeQuestList> list = new ArrayList<>();
+
+        SQLiteDatabase db = myDbHelper.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + ToDo.TABLE_NAME, null);
+
+        if(c.moveToFirst()){
+            do{
+                int col1 = c.getInt(0);
+                String col2 = c.getString(1);
+                String co13 = c.getString(2);
+                Log.i(TAG,"col1: "+ col1 + " col2: " + col2 + " col3: " + co13);
+
+                list.add(new HomeQuestList(col2));
+                viewPager2.setAdapter(new HomeAdapter(list));
+            }while (c.moveToNext());
+        }
+        c.close();
+        db.close();
+    }
 
 }

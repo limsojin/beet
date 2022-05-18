@@ -20,21 +20,29 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="DIARY"
-            android:textSize="35dp"
+            android:textSize="35sp"
             android:textStyle="bold"/>
 
     </androidx.appcompat.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/diary_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout"
         android:layout_width="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_height="150dp"
-        android:hint="  일기를 적어보세요! 현재 날짜를 받아와 등록할 수 있게 만들 것"
-        android:layout_gravity="center"
-        android:background="@drawable/box"/>
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/diarycontent"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/box"
+            android:inputType="textLongMessage"
+            android:hint="  일기를 적어보세요! " />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -43,14 +51,18 @@
         android:layout_marginLeft="16dp"
         android:background="@drawable/newbox"
         >
+
         <TextView
+            android:id="@+id/diary_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:text=" 27 April, 2022 "
-            android:textStyle="italic"
             android:textSize="20dp"
-            android:layout_margin="8dp">
-        </TextView>
+            android:textStyle="italic"></TextView>
 
         <android.widget.Button
             android:id="@+id/save_button"
@@ -68,12 +80,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F3F3F3">
+
         <ListView
-            android:layout_width="wrap_content"
+
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            >
-        </ListView>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"></ListView>
+
     </RelativeLayout>
 
 
