@@ -73,7 +73,7 @@ public class CalendarActivity extends AppCompatActivity{
 
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.SUNDAY)
-                .setMinimumDate(CalendarDay.from(2022, 00, 1)) // 달력의 시작
+                .setMinimumDate(CalendarDay.from(2022, 0, 1)) // 달력의 시작
                 .setMaximumDate(CalendarDay.from(2030, 11, 31)) // 달력의 끝
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
@@ -91,7 +91,7 @@ public class CalendarActivity extends AppCompatActivity{
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 int Year = date.getYear();
-                int Month = date.getMonth() + 01;
+                int Month = date.getMonth()+ 1;
                 int Day = date.getDay();
                 long now = System.currentTimeMillis();
                 Date date2 = new Date(now);
@@ -102,18 +102,21 @@ public class CalendarActivity extends AppCompatActivity{
                 Log.i("Month test", Month + "");
                 Log.i("Day test", Day + "");
 
-                shot_Day = Year + "/" + Month + "/" + Day;
-
+                if(Month<10 && Day<10){
+                    shot_Day = Year + "/0" + Month + "/0" + Day;
+                }else{
+                    shot_Day = Year + "/" + Month + "/" + Day;
+                }
+                //shot_Day = Year + "/0" + Month + "/0" + Day;
 
                 Log.i("shot_Day reg_date2 test", shot_Day + "");
-                Log.i("shot_Day reg_date2 test", getTime + "");
+                Log.i("getTimetest", getTime + "");
                 materialCalendarView.clearSelection();
 
                 Toast.makeText(getApplicationContext(), getTime , Toast.LENGTH_SHORT).show();
 
-                init();
                 callistView.setAdapter(newdiaryAdapter);
-
+                init();
 
             }
         });
@@ -192,24 +195,26 @@ public class CalendarActivity extends AppCompatActivity{
             do{
                 int diaryid2 = c.getInt(0);
                 String sentence2 = c.getString(1);
-                String date2 = c.getString(2);
+                String date3 = c.getString(2);
                 int image2 = c.getInt(3);
-                Log.i(TAG, "DIARYID: " + diaryid2 +" sentence: " + sentence2 + " date2: " + date2 + " image: " + image2);
+                Log.i(TAG, "DIARYID: " + diaryid2 +" sentence: " + sentence2 + " date2: " + date3 + " image: " + image2);
                 Log.i(TAG, "shot_Day: " + shot_Day);
 
-                if(date2.equals(getTime)) {
-                    newdiaryLists.add(new NewDiaryList(sentence2, date2, image2));
-                }else
+                if(shot_Day.equals(date3)) {
+                    newdiaryLists.add(new NewDiaryList(sentence2, date3, image2));
+                }else{
                     newdiaryLists.clear();
+                    newdiaryLists.remove(getTime);
+                }
 
             }while(c.moveToNext());
         }c.close();
         db.close();
 
     }
-    @Override
+    /*@Override
     public void onResume() {
         super.onResume();
         newdiaryAdapter.notifyDataSetChanged();
-    }
+    }*/
 }

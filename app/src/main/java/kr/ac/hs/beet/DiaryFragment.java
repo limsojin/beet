@@ -161,7 +161,7 @@ public class DiaryFragment extends Fragment implements DiaryAdapter.ListBtnClick
                         ContentValues values = new ContentValues();
                         values.put(Diary.SENTENCE, editText_diary_content);
                         values.put(Diary.DATE, reg_date);
-                        values.put(Diary.Image, em1);
+                        values.put(Diary.IMAGE, em1);
                         SQLiteDatabase db = myDbHelper.getWritableDatabase();
                         long newRowId = db.insert(Diary.TABLE_NAME, null, values);
 
@@ -190,7 +190,7 @@ public class DiaryFragment extends Fragment implements DiaryAdapter.ListBtnClick
                         ContentValues values = new ContentValues();
                         values.put(Diary.SENTENCE, editText_diary_content);
                         values.put(Diary.DATE, reg_date);
-                        values.put(Diary.Image, em2);
+                        values.put(Diary.IMAGE, em2);
                         SQLiteDatabase db = myDbHelper.getWritableDatabase();
                         long newRowId = db.insert(Diary.TABLE_NAME, null, values);
 
@@ -219,7 +219,7 @@ public class DiaryFragment extends Fragment implements DiaryAdapter.ListBtnClick
                         ContentValues values = new ContentValues();
                         values.put(Diary.SENTENCE, editText_diary_content);
                         values.put(Diary.DATE, reg_date);
-                        values.put(Diary.Image, em3);
+                        values.put(Diary.IMAGE, em3);
                         SQLiteDatabase db = myDbHelper.getWritableDatabase();
                         long newRowId = db.insert(Diary.TABLE_NAME, null, values);
 
@@ -248,7 +248,7 @@ public class DiaryFragment extends Fragment implements DiaryAdapter.ListBtnClick
                         ContentValues values = new ContentValues();
                         values.put(Diary.SENTENCE, editText_diary_content);
                         values.put(Diary.DATE, reg_date);
-                        values.put(Diary.Image, em4);
+                        values.put(Diary.IMAGE, em4);
                         SQLiteDatabase db = myDbHelper.getWritableDatabase();
                         long newRowId = db.insert(Diary.TABLE_NAME, null, values);
 
@@ -277,7 +277,7 @@ public class DiaryFragment extends Fragment implements DiaryAdapter.ListBtnClick
                         ContentValues values = new ContentValues();
                         values.put(Diary.SENTENCE, editText_diary_content);
                         values.put(Diary.DATE, reg_date);
-                        values.put(Diary.Image, em5);
+                        values.put(Diary.IMAGE, em5);
                         SQLiteDatabase db = myDbHelper.getWritableDatabase();
                         long newRowId = db.insert(Diary.TABLE_NAME, null, values);
 
@@ -306,7 +306,7 @@ public class DiaryFragment extends Fragment implements DiaryAdapter.ListBtnClick
                         ContentValues values = new ContentValues();
                         values.put(Diary.SENTENCE, editText_diary_content);
                         values.put(Diary.DATE, reg_date);
-                        values.put(Diary.Image, em6);
+                        values.put(Diary.IMAGE, em6);
                         SQLiteDatabase db = myDbHelper.getWritableDatabase();
                         long newRowId = db.insert(Diary.TABLE_NAME, null, values);
 
@@ -335,7 +335,7 @@ public class DiaryFragment extends Fragment implements DiaryAdapter.ListBtnClick
                         ContentValues values = new ContentValues();
                         values.put(Diary.SENTENCE, editText_diary_content);
                         values.put(Diary.DATE, reg_date);
-                        values.put(Diary.Image, em7);
+                        values.put(Diary.IMAGE, em7);
                         SQLiteDatabase db = myDbHelper.getWritableDatabase();
                         long newRowId = db.insert(Diary.TABLE_NAME, null, values);
 

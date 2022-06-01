@@ -96,6 +96,7 @@ public class DiaryAdapter extends BaseAdapter implements View.OnClickListener {
         //Bitmap bitmap = BitmapFactory.decodeFile(path);
         //emoji.setImageDrawable(drawable);
 
+        notifyDataSetChanged();
 
         return view;
     }

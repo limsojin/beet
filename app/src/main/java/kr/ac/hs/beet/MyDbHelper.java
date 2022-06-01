@@ -25,13 +25,32 @@ public class MyDbHelper extends SQLiteOpenHelper {
                     Diary.DIARY_ID + " INTEGER PRIMARY KEY," +
                     Diary.SENTENCE + " TEXT," +
                     Diary.DATE + " TEXT," +
-                    Diary.Image + " TEXT)";
-
-
-
+                    Diary.IMAGE + " TEXT)";
 
     private static final String SQL_DELETE_DIARY =
             "DROP TABLE IF EXISTS " + Diary.TABLE_NAME;
+
+
+    //Storage_db
+    private static final String SQL_CREATE_STORAGE =
+            "CREATE TABLE " + Storage.TABLE_NAME + " (" +
+                    Storage.IMAGE + " INTEGER PRIMARY KEY," +
+                    Storage.ITEM_NAME + " TEXT," +
+                    Storage.DOIT_COUNT + " INTEGER)";
+
+    private static final String SQL_DELETE_STORAGE =
+            "DROP TABLE IF EXISTS " + Storage.TABLE_NAME;
+
+
+    //Customer_db
+    private static final String SQL_CREATE_CUSTOMER =
+            "CREATE TABLE " + Customer.TABLE_NAME + " (" +
+                    Customer.CUSTOMER_ID + " INTEGER PRIMARY KEY," +
+                    Customer.JOIN_DATE + " TEXT," +
+                    Customer.DOIT_COUNT + " INTEGER)";
+
+    private static final String SQL_DELETE_CUSTOMER =
+            "DROP TABLE IF EXISTS " + Customer.TABLE_NAME;
 
 
     public MyDbHelper(Context context) {
@@ -43,14 +62,16 @@ public class MyDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_TODO);
         sqLiteDatabase.execSQL(SQL_CREATE_DIARY);
-
+        sqLiteDatabase.execSQL(SQL_CREATE_STORAGE);
+        sqLiteDatabase.execSQL(SQL_CREATE_CUSTOMER);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(SQL_DELETE_TODO);
         sqLiteDatabase.execSQL(SQL_DELETE_DIARY);
-
+        sqLiteDatabase.execSQL(SQL_DELETE_STORAGE);
+        sqLiteDatabase.execSQL(SQL_DELETE_CUSTOMER);
         onCreate(sqLiteDatabase);
     }
 }

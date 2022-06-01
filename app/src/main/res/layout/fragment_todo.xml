@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_todo"
     android:orientation="vertical">
 
@@ -84,6 +85,7 @@
             android:progressDrawable="@drawable/custombar" />
 
         <android.widget.Button
+            android:id="@+id/button_beet"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginLeft="280dp"
@@ -95,10 +97,13 @@
             android:textStyle="bold"></android.widget.Button>
     </RelativeLayout>
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tasksRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="370dp"
-        android:padding="16dp"></ListView>
+        android:nestedScrollingEnabled="true"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/activity_list_todo" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

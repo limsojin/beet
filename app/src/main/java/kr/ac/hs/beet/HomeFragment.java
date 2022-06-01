@@ -24,8 +24,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,14 +34,20 @@ public class HomeFragment extends Fragment {
 
     private FragmentManager fragmentManager;
     private Toolbar toolbar; //툴바
+
     //하단 버튼 없애기
     private View decorView;
     private int	uiOption;
     MyDbHelper myDbHelper;
     ViewPager2 viewPager2;
+
     //ArrayList<HomeQuestList> list = new ArrayList<>();
     EditText text2;
+    TextView doit_count;
+
     int count;
+
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -64,6 +68,7 @@ public class HomeFragment extends Fragment {
         myDbHelper = new MyDbHelper(getActivity().getApplicationContext());
 
         text2 = view.findViewById(R.id.d_day);
+        doit_count = view.findViewById(R.id.doit_count);
 
         long now = System.currentTimeMillis();
         Date date = new Date(now);
@@ -77,11 +82,14 @@ public class HomeFragment extends Fragment {
                 text2.setText(String.valueOf(count));
         }
 
+        doit_count_lookup();
+
+
         /* 예시로 집어넣음!
         list.add(new HomeQuestList("7PM go to the gym"));
         viewPager2.setAdapter(new HomeAdapter(list));*/
 
-        QusetInit();
+        //QusetInit();
 
         fragmentManager = getFragmentManager();
 
@@ -140,12 +148,13 @@ public class HomeFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+/*
     //--------------
     public void QusetInit(){
         ArrayList<HomeQuestList> list = new ArrayList<>();
 
         SQLiteDatabase db = myDbHelper.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + ToDo.TABLE_NAME, null);
+        Cursor c = db.rawQuery("SELECT * FROM " + TodoDBHelper, null);
 
         if(c.moveToFirst()){
             do{
@@ -160,7 +169,24 @@ public class HomeFragment extends Fragment {
         }
         c.close();
         db.close();
-    }
+    }*/
 
+    public void doit_count_lookup(){
+        SQLiteDatabase db = myDbHelper.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + Storage.TABLE_NAME, null);
+        if(c.moveToFirst()){
+            do{
+                int count = c.getInt(2);
+                Log.i(TAG,"READ COUNT: " + count);
+
+                doit_count.setText(String.valueOf(count));
+            }while(c.moveToNext());
+        }
+        c.close();
+        db.close();
+        //todo디비와 연동할것.
+        //1.todo에서 비트 받기 버튼 -> 퀘스트 개수만큼 비트 카운트 -> 비트 개수 디비에 저장
+        //2.비트 개수를 sql문으로 불러와서 int or string으로 받아옴 -> 메인홈 textview:doit_count에 집어넣음
+    }
 
 }
