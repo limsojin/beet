@@ -1,11 +1,11 @@
 package kr.ac.hs.beet;
 
-public class DiaryList {
+public class NewDiaryList {
     String sentence;
     String date;
     int image;
 
-    public DiaryList(String sentence, String date, int image){
+    public NewDiaryList(String sentence, String date, int image){
         this.sentence= sentence;
         this.date = date;
         this.image = image;
@@ -33,5 +33,4 @@ public class DiaryList {
     public void setDate(String date) {
         this.date = date;
     }
-
 }

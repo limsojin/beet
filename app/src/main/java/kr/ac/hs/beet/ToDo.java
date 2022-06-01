@@ -7,6 +7,7 @@ public class ToDo {
     public static final String TABLE_NAME = "todo";
     public static final String TODO_ID = "todo_id";
     public static final String QUSET = "quset";
+    public static final String DOIT_COUNT = "quset";
     public static final String DATE= "date";
 
 

@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class MyDbHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "Pocketpet.db";
 
     //TODO_db
@@ -13,7 +13,8 @@ public class MyDbHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + ToDo.TABLE_NAME + " (" +
                     ToDo.TODO_ID + " INTEGER PRIMARY KEY," +
                     ToDo.QUSET + " TEXT," +
-                    ToDo.DATE + " INTEGER)";
+                    ToDo.DOIT_COUNT + " INTEGER," +
+                    ToDo.DATE + " TEXT)";
 
     private static final String SQL_DELETE_TODO =
             "DROP TABLE IF EXISTS " + ToDo.TABLE_NAME;
@@ -24,7 +25,10 @@ public class MyDbHelper extends SQLiteOpenHelper {
                     Diary.DIARY_ID + " INTEGER PRIMARY KEY," +
                     Diary.SENTENCE + " TEXT," +
                     Diary.DATE + " TEXT," +
-                    Diary.TIME + " TEXT)";
+                    Diary.Image + " TEXT)";
+
+
+
 
     private static final String SQL_DELETE_DIARY =
             "DROP TABLE IF EXISTS " + Diary.TABLE_NAME;
@@ -39,6 +43,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_TODO);
         sqLiteDatabase.execSQL(SQL_CREATE_DIARY);
+
     }
 
     @Override

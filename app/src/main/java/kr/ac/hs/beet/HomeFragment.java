@@ -12,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -22,7 +24,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class HomeFragment extends Fragment {
     private final String TAG = "HomeFragment";
@@ -35,7 +42,8 @@ public class HomeFragment extends Fragment {
     MyDbHelper myDbHelper;
     ViewPager2 viewPager2;
     //ArrayList<HomeQuestList> list = new ArrayList<>();
-
+    EditText text2;
+    int count;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -54,6 +62,20 @@ public class HomeFragment extends Fragment {
         viewPager2 = view.findViewById(R.id.viewPager2);
 
         myDbHelper = new MyDbHelper(getActivity().getApplicationContext());
+
+        text2 = view.findViewById(R.id.d_day);
+
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
+
+        String getTime = dateFormat.format(date);
+        String today = "2022-05-31";
+
+        if(today.compareTo(getTime)<0){
+                count++;
+                text2.setText(String.valueOf(count));
+        }
 
         /* 예시로 집어넣음!
         list.add(new HomeQuestList("7PM go to the gym"));
@@ -139,5 +161,6 @@ public class HomeFragment extends Fragment {
         c.close();
         db.close();
     }
+
 
 }

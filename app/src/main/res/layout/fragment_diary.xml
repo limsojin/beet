@@ -25,24 +25,93 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/box"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box">
+            <ImageView
+                android:id="@+id/emoji1"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/emotion1"></ImageView>
+            <ImageView
+                android:id="@+id/emoji2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/emotion2"></ImageView>
+            <ImageView
+                android:id="@+id/emoji3"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/emotion3"></ImageView>
+            <ImageView
+                android:id="@+id/emoji4"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/emotion4"></ImageView>
+            <ImageView
+                android:id="@+id/emoji5"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/emotion5"></ImageView>
+            <ImageView
+                android:id="@+id/emoji6"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/emotion6"></ImageView>
+            <ImageView
+                android:id="@+id/emoji7"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/emotion7"></ImageView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <EditText
             android:id="@+id/diarycontent"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/box"
+            android:hint="  일기를 적어보세요! "
             android:inputType="textLongMessage"
-            android:hint="  일기를 적어보세요! " />
+            android:paddingLeft="16dp" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -82,15 +151,14 @@
         android:background="#F3F3F3">
 
         <ListView
-
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"></ListView>
+            android:layout_marginBottom="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"></ListView>
 
     </RelativeLayout>
 

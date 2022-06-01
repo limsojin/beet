@@ -70,25 +70,24 @@ android:orientation="vertical">
         android:textSize="20dp"
         android:textStyle="italic|bold"></TextView>
 
-    <TextView
-        android:id="@+id/text2"
-        android:layout_marginTop="50dp"
+    <EditText
+        android:id="@+id/d_day"
+        android:layout_marginTop="30dp"
         android:layout_toRightOf="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="__"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:textColor="#E8A48E"
-        android:textStyle="italic|bold"></TextView>
+        android:textStyle="italic|bold"></EditText>
 
     <TextView
-        android:layout_marginTop="50dp"
-        android:layout_toRightOf="@+id/text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_toRightOf="@+id/d_day"
         android:text="일"
-        android:textSize="20dp"
         android:textColor="#E8A48E"
+        android:textSize="20dp"
         android:textStyle="italic|bold"></TextView>
 
     <TextView
