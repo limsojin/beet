@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
         list.add(new HomeQuestList("7PM go to the gym"));
         viewPager2.setAdapter(new HomeAdapter(list));*/
 
-        //QusetInit();
+        QusetInit();
 
         fragmentManager = getFragmentManager();
 
@@ -148,13 +148,13 @@ public class HomeFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
-/*
+
     //--------------
     public void QusetInit(){
         ArrayList<HomeQuestList> list = new ArrayList<>();
 
         SQLiteDatabase db = myDbHelper.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + TodoDBHelper, null);
+        Cursor c = db.rawQuery("SELECT * FROM " + ToDo.TABLE_NAME, null);
 
         if(c.moveToFirst()){
             do{
@@ -169,7 +169,7 @@ public class HomeFragment extends Fragment {
         }
         c.close();
         db.close();
-    }*/
+    }
 
     public void doit_count_lookup(){
         SQLiteDatabase db = myDbHelper.getReadableDatabase();
@@ -180,6 +180,10 @@ public class HomeFragment extends Fragment {
                 Log.i(TAG,"READ COUNT: " + count);
 
                 doit_count.setText(String.valueOf(count));
+
+                if(count == 0){
+                    doit_count.setText(String.valueOf(0));
+                }
             }while(c.moveToNext());
         }
         c.close();

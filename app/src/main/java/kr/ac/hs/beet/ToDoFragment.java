@@ -31,11 +31,13 @@ public class ToDoFragment extends Fragment {
     private RecyclerView mRv_todo;
     private FloatingActionButton mBtn_write;
     private ArrayList<TodoItem> mTodoItems;
-    private TodoDBHelper mDBHelper;
+    private MyDbHelper mDBHelper;
     private ToDoAdapter mAdapter;
-    MyDbHelper myDbHelper;
+
+    //MyDbHelper myDbHelper;
     Button button_beet;
     int count;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +49,15 @@ public class ToDoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_todo, container, false);
-        mDBHelper = new TodoDBHelper(getActivity());
+
         mRv_todo = view.findViewById(R.id.tasksRecyclerView);
         mBtn_write = view.findViewById(R.id.fab);
         mTodoItems = new ArrayList<>();
 
-        myDbHelper = new MyDbHelper(getActivity().getApplicationContext());
+        mDBHelper = new MyDbHelper(getActivity().getApplicationContext());
+
         button_beet = view.findViewById(R.id.button_beet);
+
         button_beet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +71,7 @@ public class ToDoFragment extends Fragment {
                 values.put(Storage.DOIT_COUNT, beetsize);
                 values.put(Customer.DOIT_COUNT, beetsize);
 
-                SQLiteDatabase db = myDbHelper.getWritableDatabase();
+                SQLiteDatabase db = mDBHelper.getWritableDatabase();
                 long newRowId = db.insert(Storage.TABLE_NAME, null, values);
                 long newRowId2 = db.insert(Customer.TABLE_NAME, null, values);
                 Log.i(TAG, "new row ID: " + newRowId);
@@ -110,10 +114,9 @@ public class ToDoFragment extends Fragment {
 
     private void loadRecentDB() { // 저장되어 있던 DB를 가져온다.
         mTodoItems = mDBHelper.getTodoList();
-        if(mAdapter == null){
-            mAdapter = new ToDoAdapter(mTodoItems, getActivity());
-            mRv_todo.setHasFixedSize(true);
-            mRv_todo.setAdapter(mAdapter);
-        }
+        mAdapter = new ToDoAdapter(mTodoItems, getActivity());
+        mRv_todo.setHasFixedSize(true);
+        mRv_todo.setAdapter(mAdapter);
+
     }
 }

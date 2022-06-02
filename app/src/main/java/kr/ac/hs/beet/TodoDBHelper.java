@@ -22,16 +22,6 @@ public class TodoDBHelper extends SQLiteOpenHelper
     private static final String DOIT_COUNT = "table_name";
     private static final String DATE= "table_name";
 
-    //TODO_db
-    private static final String SQL_CREATE_TODO =
-            "CREATE TABLE " + TodoDBHelper.TABLE_NAME + " (" +
-                    TodoDBHelper.TODO_ID + " INTEGER PRIMARY KEY," +
-                    TodoDBHelper.QUSET + " TEXT," +
-                    TodoDBHelper.DOIT_COUNT + " INTEGER," +
-                    TodoDBHelper.DATE + " TEXT)";
-
-    private static final String SQL_DELETE_TODO =
-            "DROP TABLE IF EXISTS " + TodoDBHelper.TABLE_NAME;
 
     public TodoDBHelper(@Nullable Context context)
     {
