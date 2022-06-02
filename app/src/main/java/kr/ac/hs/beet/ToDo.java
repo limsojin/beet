@@ -4,6 +4,7 @@ public class ToDo {
     public static final String TABLE_NAME = "todo";
     public static final String TODO_ID = "id";
     public static final String CONTENT = "content";
+    public static final String BEET_COUNT = "beet_count";
     public static final String WRITEDATE= "writeDate";
 
     //TODO_db

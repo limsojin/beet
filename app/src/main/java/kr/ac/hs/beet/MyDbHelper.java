@@ -16,6 +16,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + ToDo.TABLE_NAME + " (" +
                     ToDo.TODO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     ToDo.CONTENT + " TEXT NOT NULL," +
+                    ToDo.BEET_COUNT + " INTEGER," +
                     ToDo.WRITEDATE + " TEXT NOT NULL)";
 
     private static final String SQL_DELETE_TODO =
@@ -54,6 +55,15 @@ public class MyDbHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_CUSTOMER =
             "DROP TABLE IF EXISTS " + Customer.TABLE_NAME;
 
+    //beet_db
+    private static final String SQL_CREATE_BEET =
+            "CREATE TABLE " + Beet.TABLE_NAME + " (" +
+                    Beet.BEET_ID + " INTEGER PRIMARY KEY," +
+                    Beet.BEET_COUNT+ " INTEGER)";
+
+    private static final String SQL_DELETE_BEET =
+            "DROP TABLE IF EXISTS " + Beet.TABLE_NAME;
+
 
     public MyDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -66,6 +76,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_DIARY);
         sqLiteDatabase.execSQL(SQL_CREATE_STORAGE);
         sqLiteDatabase.execSQL(SQL_CREATE_CUSTOMER);
+        sqLiteDatabase.execSQL(SQL_CREATE_BEET);
     }
 
     @Override
@@ -74,6 +85,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_DELETE_DIARY);
         sqLiteDatabase.execSQL(SQL_DELETE_STORAGE);
         sqLiteDatabase.execSQL(SQL_DELETE_CUSTOMER);
+        sqLiteDatabase.execSQL(SQL_DELETE_BEET);
         onCreate(sqLiteDatabase);
     }
     //TodoSELECT 문 (할 일 목록을 조회)
@@ -116,5 +128,6 @@ public class MyDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " +ToDo.TABLE_NAME+ " WHERE writeDate = '" + _beforeDate + "'");
     }
+
 
 }

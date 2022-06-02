@@ -173,23 +173,22 @@ public class HomeFragment extends Fragment {
 
     public void doit_count_lookup(){
         SQLiteDatabase db = myDbHelper.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + Storage.TABLE_NAME, null);
+        Cursor c = db.rawQuery("SELECT * FROM " + Beet.TABLE_NAME, null);
         if(c.moveToFirst()){
             do{
-                int count = c.getInt(2);
-                Log.i(TAG,"READ COUNT: " + count);
-
+                int count = c.getInt(1);
+                Log.i(TAG,"HomFragment beet COUNT: " + count);
                 doit_count.setText(String.valueOf(count));
 
                 if(count == 0){
-                    doit_count.setText(String.valueOf(0));
+                    doit_count.setText("10");
                 }
             }while(c.moveToNext());
         }
         c.close();
         db.close();
         //todo디비와 연동할것.
-        //1.todo에서 비트 받기 버튼 -> 퀘스트 개수만큼 비트 카운트 -> 비트 개수 디비에 저장
+        //1.todo에서 비트 받기 버튼 -> 퀘스트 완료 개수만큼 비트 카운트 -> 비트 개수 디비에 저장
         //2.비트 개수를 sql문으로 불러와서 int or string으로 받아옴 -> 메인홈 textview:doit_count에 집어넣음
     }
 

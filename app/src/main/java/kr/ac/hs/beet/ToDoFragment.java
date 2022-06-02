@@ -2,6 +2,7 @@ package kr.ac.hs.beet;
 
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ToDoFragment extends Fragment {
+public class ToDoFragment extends Fragment implements ToDoAdapter.BeetCheckBoxClickListener{
     private static final String TAG = "ToDoFragment";
     private RecyclerView mRv_todo;
     private FloatingActionButton mBtn_write;
@@ -62,9 +63,20 @@ public class ToDoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 int beetsize = mTodoItems.size();
-                Log.i(TAG,"beetsize" + beetsize);
+                Log.i(TAG,"beetsize: " + beetsize);
 
-                ContentValues values = new ContentValues();
+                for(int i=0; i<beetsize; i++){
+                    count++;
+                }
+                if(count == beetsize){
+                    ContentValues values3 = new ContentValues();
+                    values3.put(Beet.BEET_COUNT,count);
+                    SQLiteDatabase db = mDBHelper.getWritableDatabase();
+                    long newRowId = db.insert(Beet.TABLE_NAME, null, values3);
+                }else
+                    Log.i(TAG,"비트없음");
+
+                /*ContentValues values = new ContentValues();
 
                 //values.put(ToDo.DOIT_COUNT, beetsize); -> 오류남 todohelper랑 겹쳐서 그런가봄
 
@@ -74,13 +86,32 @@ public class ToDoFragment extends Fragment {
                 SQLiteDatabase db = mDBHelper.getWritableDatabase();
                 long newRowId = db.insert(Storage.TABLE_NAME, null, values);
                 long newRowId2 = db.insert(Customer.TABLE_NAME, null, values);
-                Log.i(TAG, "new row ID: " + newRowId);
+                Log.i(TAG, "new row ID: " + newRowId);*/
 
+                SQLiteDatabase db2 = mDBHelper.getReadableDatabase();
+                Cursor c = db2.rawQuery("SELECT * FROM " + Beet.TABLE_NAME, null);
+                if(c.moveToFirst()) {
+                    int beetcount = c.getInt(1);
+                    Log.i(TAG, "ToDoFragment beetcount: " + beetcount);
+
+                    ContentValues values = new ContentValues();
+                    values.put(Storage.DOIT_COUNT, beetcount);
+                    values.put(Customer.DOIT_COUNT, beetcount);
+
+                    SQLiteDatabase db = mDBHelper.getWritableDatabase();
+                    long newRowId = db.insert(Storage.TABLE_NAME, null, values);
+                    long newRowId2 = db.insert(Customer.TABLE_NAME, null, values);
+                    Log.i(TAG, "new row ID: " + newRowId);
+
+                }while(c.moveToNext());
+                c.close();
+                db2.close();
             }
         });
 
 
         loadRecentDB(); // load recent DB
+
         mBtn_write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,9 +145,41 @@ public class ToDoFragment extends Fragment {
 
     private void loadRecentDB() { // 저장되어 있던 DB를 가져온다.
         mTodoItems = mDBHelper.getTodoList();
-        mAdapter = new ToDoAdapter(mTodoItems, getActivity());
+        mAdapter = new ToDoAdapter(mTodoItems, getActivity(),this);
         mRv_todo.setHasFixedSize(true);
         mRv_todo.setAdapter(mAdapter);
 
     }
+
+    @Override
+    public void BeetCheckBoxClick(int count){
+        count++;
+        boolean checkDB = true;
+        SQLiteDatabase db1 = mDBHelper.getReadableDatabase();
+        Cursor c = db1.rawQuery("SELECT * FROM " + Beet.TABLE_NAME,null);
+        while(c.moveToFirst()){
+            if(c.getString(0).equals("beet_id")){
+                checkDB = false;
+                break;
+            }
+        }c.close();
+
+        SQLiteDatabase db = mDBHelper.getWritableDatabase();
+
+        if(checkDB){ //튜플 생성
+            ContentValues values = new ContentValues();
+            values.put(Beet.BEET_ID, 1);
+            values.put(Beet.BEET_COUNT, 0);
+            long newRowId2 = db.insert(Beet.TABLE_NAME,null, values);
+            Log.i(TAG,"new row Id : " + newRowId2);
+        }
+
+        SQLiteDatabase db3 = mDBHelper.getWritableDatabase();
+
+        ContentValues values3 = new ContentValues();
+        values3.put(Beet.BEET_COUNT,count); //개수를 세고
+        db3.update(Beet.TABLE_NAME, values3, Beet.BEET_ID + " = " + 1 ,null );
+        //업데이트가 필요하면 보드아이디로 확인해 count를 새로 집어넣음
+    }
+
 }

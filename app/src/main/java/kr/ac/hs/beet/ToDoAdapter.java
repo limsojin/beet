@@ -2,13 +2,18 @@ package kr.ac.hs.beet;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,14 +24,24 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder>{
+public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> implements Checkable{
+    private static final String TAG = "ToDoAdapter";
     private ArrayList<TodoItem> mTodoItems;
     private Context mContext;
     private MyDbHelper mTodoDBHelper;
+    int count;
+    private boolean mIsChecked;
+    private BeetCheckBoxClickListener beetCheckBoxClickListener;
 
-    public ToDoAdapter(ArrayList<TodoItem> todoItems, Context mContext) {
+
+    public interface BeetCheckBoxClickListener{
+        void BeetCheckBoxClick(int count);
+    }
+
+    public ToDoAdapter(ArrayList<TodoItem> todoItems, Context mContext, BeetCheckBoxClickListener beetCheckBoxClickListener) {
         this.mTodoItems = todoItems;
         this.mContext = mContext;
+        this.beetCheckBoxClickListener = beetCheckBoxClickListener;
         mTodoDBHelper = new MyDbHelper(mContext);
     }
 
@@ -47,13 +62,33 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder>{
         return mTodoItems.size();
     }
 
+    @Override
+    public void setChecked(boolean checked) {
+        setChecked(mIsChecked ? false : true) ;
+    }
+
+    @Override
+    public boolean isChecked() {
+        return mIsChecked ;
+    }
+
+    @Override
+    public void toggle() {
+        setChecked(mIsChecked ? false : true) ;
+    }
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private CheckBox checkBox;
         private EditText text;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             EditText text = itemView.findViewById(R.id.newTaskText);
+            int beetposition = getAdapterPosition();
             checkBox = itemView.findViewById(R.id.todoCheckBox);
+
+            //beetadd();
+            //체크 박스가 클릭되면
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,4 +153,6 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder>{
         mTodoItems.add(0, _item);
         notifyItemInserted(0);
     }
+
+
 }
